@@ -3,7 +3,8 @@
 
 #define CONFIG_STRUCT_NAME ConfigCamera
 #define CONFIG_STRUCT_FIELDS \
-    X(uint32_t, Version)
+    X_U32(Version) \
+    X_STR(32, SerialNr)
 #include "ConfigFormatGen.h"
 
 #endif // CONFIG_STRUCTS_H__

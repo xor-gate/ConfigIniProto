@@ -28,6 +28,7 @@ struct ConfigFormatField {
 	void *value;
 };
 
-const struct ConfigFormatField *ConfigFormatGetFieldByName(const struct ConfigFormat *Format, const char *Name, void *Structure);
+const struct ConfigFormatField *ConfigFormatGetFieldByName(const char *FieldName, const struct ConfigFormat *Format, void *Structure);
+const struct ConfigFormatField *ConfigFormatGetFieldByNr(const size_t FieldNr, const struct ConfigFormat *Format, void *Structure);
 
 #endif // CONFIG_FORMAT_H__

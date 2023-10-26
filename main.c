@@ -42,7 +42,7 @@ struct_unpack(struct ConfigFormat *fmt, unsigned char *buffer, void *structure)
 }
 
 void
-struct_print(struct ConfigFormat *fmt, void *structure)
+struct_print(const struct ConfigFormat *fmt, void *structure)
 {
     printf("%s:\n", fmt->struct_name);
     for (size_t i = 0; i < fmt->num_members; i++) {
@@ -56,13 +56,18 @@ struct_print(struct ConfigFormat *fmt, void *structure)
 int
 main(void)
 {
-	const char *Data = "Version=2";
+	char IniBuffer[4096];
 
-	struct ConfigCamera cc = {.Version = 1};
+	struct ConfigCamera cc = {.Version = 1, .SerialNr = "123456"};
 
+	printf("Written ini file:\n\n");
+	ConfigIniWrite(IniBuffer, sizeof(IniBuffer), &ConfigCameraFormat, &cc);
+	printf("%s", IniBuffer);
+
+	memset(&cc, 0, sizeof(cc));
+
+	ConfigIniParse(&cc, &ConfigCameraFormat, IniBuffer);
 	struct_print(&ConfigCameraFormat, &cc);
-
-	ConfigIniParse(&cc, &ConfigCameraFormat, Data);
 
 	return 0;
 }
